@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta chartes="UTF-8">
+    <title>Kelime Sayacı</title>
+
+<style>
+    body {
+        background-color: #1a1a2e;
+        color: #e0e0ee;
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+
+    h1 {
+        color: #7c6dfa;
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+
+    textarea {
+        width: 100%;
+        background: #16213e;
+        color: #e0e0e0;
+        border: 1px solid #7c6dfa;
+        border-radius: 10px;
+        padding: 15px;
+        font-size: 1rem;
+        resize: vertical;
+    }
+
+    button {
+        width: 100%;
+        background: #7c6dfa;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 12px;
+        font-size: 1rem;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    button:hover {
+        background: #5a4fd6;
+    }
+
+    h2 {
+        color: #7c6dfa;
+        margin-top: 30px;
+    }
+
+    p {
+        background: #16213e;
+        padding: 12px 20px;
+        border-radius: 8px;
+        margin: 8px 0;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        background: #16213e;
+        color: #e0e0e0;
+        border: 1px solid #7c6dfa;
+        border-radius: 10px;
+        padding: 12px 15px;
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+    
+</style>
+</head>
+<body>
+    <h1>Kelime Tarayıcı</h1>
+
+    <form method="POST" action="/">
+        <textarea name="metin" rows="10" cols="50"
+        placeholder="Metni buraya yaz..."></textarea>
+        <br>
+        <button type="submit">Analiz Et</button>
+    </form>
+
+    {% if sonuc %}
+        <h2>Analiz Sonuçları</h2>
+        <p>Toplam kelime: {{ sonuc.toplam }}</p>
+        <p>Benzersiz kelime: {{ sonuc.benzersiz }}</p>
+        <p>Cümle sayısı: {{ sonuc.cumle }}</p>
+
+        <h2> En Sık Kelimeler</h2>
+        {% for item in sonuc.en_cok %}
+           <p>{{ item[0] }} -> {{ item[1] }} kez</p> 
+        {% endfor %}
+    {% endif %}
+
+    <h2>Kelime Ara</h2>
+    <form method="POST" action="/ara">
+        <input type="text" name="kelime"
+               placeholder="Aramak istediğin kelime...">
+        <input type="hidden" name="metin" value="">
+        <button type="submit">Ara</button>
+    </form>
+
+    {% if aranan %}
+        <p>
+            "{{ aranan }}" kelimesi
+            {{ arama_sonuc }} kez geçiyor.
+        </p>
+    {% endif %}
+
+</body>
+</html>
