@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request
 from kelime_sayaci import temizle_ve_ayir, stopwords_temizle, analiz_et
 
